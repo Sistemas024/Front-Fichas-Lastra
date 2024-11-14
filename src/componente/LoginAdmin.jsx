@@ -21,7 +21,7 @@ const Register = () => {
     const newUser = { email, password }; // Solo enviar email y password
 
     try {
-      const response = await fetch('http://localhost:5000/admon', {
+      const response = await fetch('http://localhost:5000/auth/admon', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ const Register = () => {
   return (
     <div className="register-container">
       <form className="register-form" onSubmit={handleRegister}>
-        <h2>Registro</h2>
+        <h2>Registro Administrador</h2>
 
         <div className="form-group">
           <label htmlFor="email">Correo Electrónico</label>
@@ -86,6 +86,9 @@ const Register = () => {
         {success && <p className="success-message">¡Registro exitoso!</p>}
 
         <button type="submit">Crear</button>
+        <p>
+                ¿Ya tienes cuenta? <a href="/login">Inicia sesión</a>
+        </p>
       </form>
     </div>
   );

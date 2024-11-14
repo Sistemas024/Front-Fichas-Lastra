@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'
+import './Login.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -10,30 +10,40 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
-      event.preventDefault();
-      
-      const response = await fetch('https://backend-fichas-lastra-16fuy3l6e-sistemas-projects-de431368.vercel.app/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-    
-      const data = await response.json();
-    
-      if (response.ok) {
-        localStorage.setItem('token', data.token);  // Guardar el token en el localStorage
-        localStorage.setItem('role', data.role);    // Guardar el rol del usuario
-        navigate('/home');  // Redirigir al home si la respuesta es exitosa
-      } else {
-        alert(data.message);  // Si hay un error, mostrar el mensaje
-      }
+        event.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:5000/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Guardar el token y el rol en el localStorage
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('role', data.role);
+
+                // Redirigir al componente adecuado según el rol
+                if (data.role === 'admin') {
+                    navigate('/home-admin'); // Redirige a HomeAdmin para admins
+                } else {
+                    navigate('/home'); // Redirige a Home para usuarios
+                }
+            } else {
+                setError(data.message); // Muestra el mensaje de error
+            }
+        } catch (err) {
+            setError('Hubo un error en la conexión con el servidor.');
+        }
     };
-    
 
     return (
         <div className="form-container">
