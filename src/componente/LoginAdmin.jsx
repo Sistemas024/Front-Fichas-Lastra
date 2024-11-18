@@ -21,7 +21,7 @@ const Register = () => {
     const newUser = { email, password }; // Solo enviar email y password
 
     try {
-      const response = await fetch('http://localhost:5000/auth/admon', {
+      const response = await fetch('https://backend-fichas-lastra-8rzfkygai-sistemas-projects-de431368.vercel.app/auth/admon', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
