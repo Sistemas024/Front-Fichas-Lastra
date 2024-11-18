@@ -1,47 +1,40 @@
-// HomeAdmin.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomeAdmin.css';
 
 const HomeAdmin = () => {
   const navigate = useNavigate();
-  const [ganadores, setGanadores] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
-    // Recuperar los ganadores desde el LocalStorage
-    const datosGuardados = JSON.parse(localStorage.getItem('ganadores')) || [];
-    setGanadores(datosGuardados);
+    // Recuperar los usuarios desde el LocalStorage
+    const datosUsuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    setUsuarios(datosUsuarios);
   }, []);
 
   const handleLogout = () => {
-    navigate('/'); // Redirigir al Login al cerrar sesión
+    navigate('/login'); // Redirigir al Login al cerrar sesión
   };
 
   return (
     <div className="home-container-admin">
       <h1>Bienvenido al Panel de Administrador</h1>
-      <p>GANADORES!</p>
+      <h2>Usuarios Registrados</h2>
 
       <table className="data-table">
         <thead>
           <tr>
-            <th>Fecha</th>
             <th>Nombre</th>
-            <th>Cédula</th>
-            <th>Teléfono</th>
-            <th>Código</th>
-            <th>Premio</th>
+            <th>Email</th>
+            <th>Rol</th>
           </tr>
         </thead>
         <tbody>
-          {ganadores.map((ganador, index) => (
+          {usuarios.map((usuario, index) => (
             <tr key={index}>
-              <td>{ganador.fecha}</td>
-              <td>{ganador.nombre}</td>
-              <td>{ganador.cedula}</td>
-              <td>{ganador.telefono}</td>
-              <td>{ganador.codigo}</td>
-              <td>{ganador.premio}</td>
+              <td>{usuario.nombre}</td>
+              <td>{usuario.email}</td>
+              <td>{usuario.rol}</td>
             </tr>
           ))}
         </tbody>
