@@ -12,7 +12,7 @@ function App() {
         <Router>
             <Routes>
                 {/* Define tus rutas principales */}
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/home-admin" element={<HomeAdmin />} />
                 <Route path="/admon" element={<LoginAdmin />} />
                 <Route path="/home" element={<Home />} />
